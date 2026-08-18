@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://midmake.github.io/gamepix/sitemap.xml
+Sitemap: https://midgames.midasstudio.com.br/sitemap.xml
