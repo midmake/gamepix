@@ -8,17 +8,17 @@ Preparar uma experiência pública profissional para apresentação como Publish
 
 ## Estrutura
 
-- `site/` — conteúdo público publicado no GitHub Pages.
-- `partner-concept/` — materiais conceituais privados de proposta, fora do artefato de deploy.
-- `.github/workflows/pages.yml` — pipeline de publicação do diretório `site/`.
-
-## Deploy
-
-O site público é publicado pelo GitHub Pages via GitHub Actions a partir exclusivamente do diretório `site/`.
+- `site/` — conteúdo público da plataforma.
+- `index.html` — entrada da raiz para garantir compatibilidade com publicação direta pelo GitHub Pages.
+- `.github/workflows/pages.yml` — pipeline preparado para publicação do diretório `site/` quando GitHub Actions for usado como fonte.
 
 ## Estado do catálogo
 
 Os jogos e artes exibidos nesta versão são fictícios e demonstrativos. A área de jogo está preparada para futura integração autorizada via embed/API.
+
+## Material de proposta
+
+Materiais conceituais de parceria não ficam armazenados neste repositório público.
 
 ## Fontes de referência
 
