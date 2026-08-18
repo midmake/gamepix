@@ -6,6 +6,10 @@ Plataforma mobile-first de jogos HTML5 da Midas Studio.
 
 `https://midgames.midasstudio.com.br`
 
+## Deploy
+
+Publicação via **GitHub Actions** a partir da pasta `site/`.
+
 ## Objetivo atual
 
 Preparar uma experiência pública profissional para apresentação como Publisher à GamePix, sem afirmar parceria ou autorização ainda não concedida.
@@ -14,7 +18,7 @@ Preparar uma experiência pública profissional para apresentação como Publish
 
 - `site/` — conteúdo público da plataforma.
 - `index.html` — entrada da raiz para garantir compatibilidade com publicação direta pelo GitHub Pages.
-- `.github/workflows/pages.yml` — pipeline preparado para publicação do diretório `site/` quando GitHub Actions for usado como fonte.
+- `.github/workflows/pages.yml` — pipeline de publicação do diretório `site/` via GitHub Actions.
 
 ## Estado do catálogo
 
