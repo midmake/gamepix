@@ -1,6 +1,10 @@
-# MIDAS Jogos
+# MID GAMES
 
 Plataforma mobile-first de jogos HTML5 da Midas Studio.
+
+## Domínio público
+
+`https://midgames.midasstudio.com.br`
 
 ## Objetivo atual
 
@@ -14,7 +18,7 @@ Preparar uma experiência pública profissional para apresentação como Publish
 
 ## Estado do catálogo
 
-Os jogos e artes exibidos nesta versão são fictícios e demonstrativos. A área de jogo está preparada para futura integração autorizada via embed/API.
+Os jogos e artes exibidos nesta versão são conceitos editoriais e imagens ilustrativas licenciadas. A área de jogo está preparada para integração autorizada via embed/API.
 
 ## Material de proposta
 
