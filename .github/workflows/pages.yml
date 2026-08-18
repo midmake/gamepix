@@ -1,4 +1,4 @@
-name: Deploy MIDAS Jogos to GitHub Pages
+name: Deploy MID GAMES to GitHub Pages
 
 on:
   push:
