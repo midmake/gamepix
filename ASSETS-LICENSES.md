@@ -6,7 +6,7 @@ Atualizado em 18/08/2026.
 
 Esta versão não usa screenshots, logos, personagens, capas ou promotional artwork de jogos de terceiros.
 
-Todos os elementos visuais do site público foram criados especificamente para este projeto usando:
+Os elementos visuais do site público foram criados especificamente para este projeto usando:
 
 - CSS;
 - gradientes;
@@ -16,9 +16,14 @@ Todos os elementos visuais do site público foram criados especificamente para e
 
 Os nomes de jogos demonstrativos também são fictícios.
 
-## Assets externos
+## Tipografia externa
 
-Nenhum asset visual externo é necessário para renderizar a versão atual.
+O CSS carrega as famílias **Inter** e **Manrope** pelo Google Fonts para a apresentação tipográfica da interface.
+
+- Inter — SIL Open Font License 1.1. Registro oficial: https://github.com/google/fonts/blob/main/ofl/inter/OFL.txt
+- Manrope — SIL Open Font License 1.1. Registro oficial: https://github.com/google/fonts/blob/main/ofl/manrope/OFL.txt
+
+Nenhuma imagem externa é necessária para renderizar a versão atual.
 
 ## Partner Concept Mockup
 
