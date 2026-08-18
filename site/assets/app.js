@@ -13,9 +13,17 @@ const games = [
   {title:'Street Arc', category:'Esportes', art:'art-sport', desc:'Disputas curtas inspiradas em esportes urbanos.'}
 ];
 
+function siteRoot(){
+  const icon=document.querySelector('link[rel="icon"]');
+  if(!icon) return new URL('./',window.location.href);
+  const favicon=new URL(icon.getAttribute('href'),window.location.href);
+  return new URL('./',favicon);
+}
+
 function gameCard(game){
+  const gameUrl=new URL('jogar/template/',siteRoot()).href;
   return `<article class="game-card" data-category="${game.category.toLowerCase()}" data-title="${game.title.toLowerCase()}">
-    <a href="./jogar/template/" aria-label="Abrir ${game.title}">
+    <a href="${gameUrl}" aria-label="Abrir ${game.title}">
       <div class="game-art ${game.art}" role="img" aria-label="Arte original fictícia de ${game.title}"></div>
       <div class="game-info"><h3>${game.title}</h3><p>${game.desc}</p><span class="tag">${game.category}</span></div>
     </a>
@@ -33,6 +41,11 @@ function renderCatalog(){
   const search=document.querySelector('#game-search');
   const filter=document.querySelector('#game-filter');
   const empty=document.querySelector('.catalog-empty');
+  const initialCategory=new URLSearchParams(window.location.search).get('categoria');
+  if(filter && initialCategory){
+    const match=[...filter.options].find(o=>o.value.toLowerCase()===initialCategory.toLowerCase());
+    if(match) filter.value=match.value;
+  }
   function update(){
     const q=(search?.value||'').trim().toLowerCase();
     const f=(filter?.value||'todos').toLowerCase();
@@ -41,7 +54,7 @@ function renderCatalog(){
       const matchesFilter=f==='todos' || g.category.toLowerCase()===f;
       return matchesText && matchesFilter;
     });
-    el.innerHTML=filtered.map(g=>gameCard(g).replaceAll('href="./jogar/template/"','href="../jogar/template/"')).join('');
+    el.innerHTML=filtered.map(gameCard).join('');
     if(empty) empty.style.display=filtered.length?'none':'block';
   }
   search?.addEventListener('input',update);
