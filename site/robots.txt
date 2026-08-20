@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://midgames.midasstudio.com.br/sitemap.xml
+Sitemap: https://midasstudio.com.br/sitemap.xml
