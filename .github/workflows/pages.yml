@@ -28,6 +28,29 @@ jobs:
       - name: Configure Pages
         uses: actions/configure-pages@v5
 
+      - name: Normalize and validate GamePix ads.txt
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          p = Path('site/ads.txt')
+          text = p.read_text(encoding='utf-8')
+
+          # Corrige uma quebra de linha que pode ter sido deformada na transferência do texto grande.
+          text = text.replace('\\\tcontextweb.com, 562615, REVENDEDOR, 89ff185a4c4e857c', '\ncontextweb.com, 562615, REVENDEDOR, 89ff185a4c4e857c')
+          p.write_text(text, encoding='utf-8')
+
+          lines = text.splitlines()
+          assert len(lines) == 879, f'ads.txt: esperado 879 linhas, encontrado {len(lines)}'
+          assert lines[0] == '#gpx-propriedade-9M27A'
+          assert lines[1] == '#gpx-última-atualização-2024-11-21'
+          assert lines[2] == '#gpx-reviq'
+          assert lines[-1] == 'rubiconproject.com, 13380, REVENDEDOR, 0bfd66d529a55807'
+          assert '\\\tcontextweb.com' not in text
+          print('ads.txt validado para publicação:', len(lines), 'linhas')
+          PY
+
       - name: Upload public site only
         uses: actions/upload-pages-artifact@v4
         with:
