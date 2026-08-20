@@ -37,8 +37,13 @@ jobs:
           p = Path('site/ads.txt')
           text = p.read_text(encoding='utf-8')
 
-          # Corrige uma quebra de linha que pode ter sido deformada na transferência do texto grande.
+          # Corrige a quebra de linha deformada na transferência do texto grande.
           text = text.replace('\\\tcontextweb.com, 562615, REVENDEDOR, 89ff185a4c4e857c', '\ncontextweb.com, 562615, REVENDEDOR, 89ff185a4c4e857c')
+
+          # O navegador traduziu parcialmente os valores padronizados do ads.txt.
+          # A especificação aceita DIRECT e RESELLER, não DIRETO/REVENDEDOR.
+          text = text.replace(', DIRETO', ', DIRECT')
+          text = text.replace(', REVENDEDOR', ', RESELLER')
           p.write_text(text, encoding='utf-8')
 
           lines = text.splitlines()
@@ -46,9 +51,21 @@ jobs:
           assert lines[0] == '#gpx-propriedade-9M27A'
           assert lines[1] == '#gpx-última-atualização-2024-11-21'
           assert lines[2] == '#gpx-reviq'
-          assert lines[-1] == 'rubiconproject.com, 13380, REVENDEDOR, 0bfd66d529a55807'
+          assert lines[-1] == 'rubiconproject.com, 13380, RESELLER, 0bfd66d529a55807'
+          assert 'DIRETO' not in text
+          assert 'REVENDEDOR' not in text
           assert '\\\tcontextweb.com' not in text
-          print('ads.txt validado para publicação:', len(lines), 'linhas')
+
+          for number, line in enumerate(lines, start=1):
+              row = line.strip()
+              if not row or row.startswith('#'):
+                  continue
+              data = row.split('#', 1)[0].strip()
+              fields = [part.strip() for part in data.split(',')]
+              assert len(fields) >= 3, f'ads.txt linha {number}: formato inválido'
+              assert fields[2] in {'DIRECT', 'RESELLER'}, f'ads.txt linha {number}: relação inválida {fields[2]!r}'
+
+          print('ads.txt GamePix validado:', len(lines), 'linhas; DIRECT/RESELLER OK')
           PY
 
       - name: Upload public site only
