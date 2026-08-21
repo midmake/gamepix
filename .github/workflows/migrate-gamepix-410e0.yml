@@ -1,66 +1,13 @@
-name: Migrate GamePix ads.txt to 410E0
+name: GamePix ads migration archived
 
 on:
-  push:
-    branches:
-      - main
+  workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  migrate:
-    if: github.actor != 'github-actions[bot]'
+  archived:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Build exact 410E0 ads.txt from verified prior GamePix file
-        shell: bash
-        run: |
-          python - <<'PY'
-          import base64
-          import gzip
-          import hashlib
-          import pathlib
-          import re
-
-          workflow = pathlib.Path('.github/workflows/pages.yml').read_text(encoding='utf-8')
-          match = re.search(r'GAMEPIX_ADS_GZ_B64:\s*(\S+)', workflow)
-          if not match:
-              raise SystemExit('Could not find verified GamePix ads payload in pages.yml')
-
-          old_data = gzip.decompress(base64.b64decode(match.group(1)))
-          old_sha = hashlib.sha256(old_data).hexdigest()
-          if old_sha != 'c10176dfb742166d1c24b5662df4080456c7d71f9371ac71a81661c05c8e2853':
-              raise SystemExit(f'Unexpected previous ads.txt SHA256: {old_sha}')
-
-          old_prefix = b'#gpx-property-9M27A'
-          new_prefix = b'#gpx-property-410E0'
-          if not old_data.startswith(old_prefix + b'\n'):
-              raise SystemExit('Unexpected previous GamePix property header')
-
-          new_data = new_prefix + old_data[len(old_prefix):]
-          new_sha = hashlib.sha256(new_data).hexdigest()
-          if new_sha != '6b72bda306baa03247215bd6f418a2b1e10fd37c980450eb6209822b35330e1c':
-              raise SystemExit(f'Generated 410E0 ads.txt does not match uploaded file: {new_sha}')
-
-          pathlib.Path('site/ads.txt').write_bytes(new_data)
-          print('Verified exact GamePix 410E0 ads.txt:', new_sha)
-          PY
-
-      - name: Commit exact ads.txt
-        shell: bash
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add site/ads.txt
-          if git diff --cached --quiet; then
-            echo "ads.txt already exact; nothing to commit"
-            exit 0
-          fi
-          git commit -m "Set exact GamePix ads.txt for property 410E0"
-          git push
+      - run: echo "Migration completed; workflow retained only as an inert archive."
